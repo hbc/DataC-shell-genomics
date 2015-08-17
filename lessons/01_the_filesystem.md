@@ -619,4 +619,33 @@ We're going to come back and use this file in just a bit.
 
 ***
 
+**Commands, options, and keystrokes covered in this lesson**
+
+```bash
+cd
+ls
+man
+pwd
+~ (home dir)
+. (current dir)
+.. (parent dir)
+*  (wildcard)
+echo
+ctrl-C (cancel current command)
+ctrl-R (reverse history search)
+ctrl-A (start of line)
+ctrl-E (end of line)
+history
+!  (repeat cmd)
+cat
+less
+head
+tail
+cp
+mdkir
+mv
+rm
+nano
+```
+
 

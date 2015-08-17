@@ -235,3 +235,15 @@ the command line, automate something you don't really need to automate.
 
 **Chaining commands together**
 
+
+**Commands, options, and keystrokes covered in this lesson**
+
+```bash
+grep
+> (output redirection)
+>> (output redirection, append)
+wc
+cut
+sort
+```
+
