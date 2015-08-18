@@ -69,7 +69,7 @@ We're going to be working with data on our remote server. After logging on, we'l
 Let's go into the sample data  directory
 
 ```bash
-$ cd dc_sample data
+$ cd ~/dc_sample_data
 ```
 
 'cd' stands for 'change directory'
