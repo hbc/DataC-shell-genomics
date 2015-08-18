@@ -148,7 +148,7 @@ Let's practice moving around a bit.
 We're going to work in that `dc_sample_data` directory.
 
 First we did something like go to the folder of our username. Then we opened
-'dc_sample_data' then 'data'
+'dc_sample_data' then 'untrimmed_fastq'
 
 Let's draw out how that went.
 
@@ -163,7 +163,7 @@ with root (/) at the base that looks like this.
 That (/) at the base is often also called the 'top' level.
 
 When you are working at your computer or log in to a remote computer,
-you are on one of the branches of that tree, your home directory (/home/dcuser)
+you are on one of the branches of that tree, your home directory (e.g. /home/dcuser)
 
 Now let's go do that same navigation at the command line.
 
@@ -175,7 +175,7 @@ $ cd
 
 This puts you in your home directory. This folder here.
 
-Now using `cd` and `ls`, go in to the 'dc_sample_data' directory and list its contents.
+Now using `cd` and `ls`, go in to the `dc_sample_data` directory and list its contents. Now go into the `untrimmed_fastq` and list its contents.
 
 Let's also check to see where we are. Sometimes when we're wandering around in the file system, it's easy to lose track of where we are and get lost.
 
@@ -186,7 +186,7 @@ $ pwd
 ```
 This stands for 'print working directory'. The directory you're currently working in.
 
-What if we want to move back up and out of the 'data' directory? Can we just type `cd dc_sample_data`? Try it and see what happens.
+What if we want to move back up and out of the `untrimmed_fastq` directory? Can we just type `cd dc_sample_data`? Try it and see what happens.
 
 To go 'back up a level' we need to use `..`
 
@@ -196,15 +196,15 @@ Type
 $ cd ..
 ```
 
-Now do `ls` and `pwd`. See now that we went back up in to the 'dc_sample_data'
+Now do `ls` and `pwd`. See now that we went back up in to the `dc_sample_data`
 directory. `..` means go back up a level.
 
 * * * *
 **Exercise**
 
-Now we're going to try a hunt.  Find a hidden directory in dc_sample_data list its contents and file the text file in there.  What is the name of the file?
+Now we're going to try a hunt. Find a hidden directory in `dc_sample_data` list its contents, and find the text file in there.  What is the name of the file?
 
-Hint: hidden files and folders in unix start with '.', for example .my_hidden_directory
+Hint: hidden files and folders in unix start with `.`, for example `.my_hidden_directory`
 * * * *
 
 
@@ -237,7 +237,7 @@ and you will jump directly to `untrimmed_fastq` without having to go through the
 ****
 **Exercise**
 
-List the 'SRR097977.fastq' file from your home directory without changing directories
+List the `SRR097977.fastq` file from your home directory without changing directories
 ****
 
 ### Shortcut: Tab Completion
@@ -248,7 +248,7 @@ Navigate to the home directory. Typing out directory names can waste a lot of ti
 $ cd dc_<tab>
 ```
 
-The shell will fill in the rest of the directory name for `dc_sample_data`. Now go to dc_sample_data/untrimmed_fastq
+The shell will fill in the rest of the directory name for `dc_sample_data`. Now go to `dc_sample_data/untrimmed_fastq` and 
 
 ```bash
 $ ls SR<tab><tab>
@@ -262,7 +262,7 @@ Tab completion can also fill in the names of programs. For example, enter `e<tab
 
 ## Full vs. Relative Paths
 
-The `cd` command takes an argument which is the directory name. Directories can be specified using either a *relative* path or a full *path*. The directories on the computer are arranged into a hierarchy. The full path tells you where a directory is in that hierarchy. Navigate to the home directory. Now, enter the `pwd` command and you should see:
+The `cd` command takes an argument which is the directory name. Directories can be specified using either a *relative* path or a full *path*. The directories on the computer are arranged into a hierarchy. The full path tells you where a directory is in that hierarchy. Navigate to the home directory (`cd`). Now, enter the `pwd` command and you should see:
 
 ```bash
 $ pwd
@@ -277,7 +277,7 @@ Now enter the following command:
 $ cd /home/dcuser/dc_sample_data/.hidden
 ```
 
-This jumps to `.hidden`. Now go back to the home directory (cd). We saw
+This jumps to `.hidden`. Now go back to the home directory (`cd`). We saw
 earlier that the command:
 
 ```bash
@@ -294,7 +294,7 @@ Over time, it will become easier for you to keep a mental note of the structure 
 
 ***
 **Exercise**
-Now, list the contents of the /bin directory. Do you see anything familiar in there? 
+Now, list the contents of the `/bin` directory. Do you see anything familiar in there? 
 How can you tell these are programs rather than plain files?
 ***
 
@@ -332,7 +332,7 @@ $ ls ../../
 
 prints the contents of `/home/dcuser` which is your home directory. Finally, the special directory `.` always refers to your current directory. So, `ls`, `ls .`, and `ls ././././.` all do the same thing, they print the contents of the current directory. This may seem like a useless shortcut right now, but we'll see when it is needed in a little while.
 
-To summarize, while you are in the `shell` directory, the commands `ls ~`, `ls ~/.`, `ls ../../`, and `ls /home/dcuser` all do exactly the same thing. These shortcuts are not necessary, they are provided for your convenience.
+To summarize, while you are in your home directory, the commands `ls ~`, `ls ~/.`, `ls ../../`, and `ls /home/dcuser` all do exactly the same thing. These shortcuts are not necessary, they are provided for your convenience.
 
 ### Our data set: FASTQ files
 
@@ -341,10 +341,10 @@ We did an experiment and want to look at sequencing results. We want to be able 
 
 ### Wild cards
 
-Navigate to the `~/dc_sample_data/data/untrimmed_fastq` directory. This
+Navigate to the `~/dc_sample_data/untrimmed_fastq` directory. This
 directory contains our FASTQ files.
 
-The `*` character is a shortcut for "everything". Thus, if you enter `ls *`, you will see all of the contents of a given directory. Now try this command:
+The '*' character is a shortcut for "everything". Thus, if you enter `ls *`, you will see all of the contents of a given directory. Now try this command:
 
 ```bash
 $ ls *fastq
@@ -366,7 +366,7 @@ lists only the file that ends with '977.fastq'
 
 So how does this actually work? Well...when the shell (bash) sees a word that contains the `*` character, it automatically looks for filenames that match the given pattern. 
 
-We can use the command 'echo' to see wilcards are they are intepreted by the shell.
+We can use the command `echo` to see wilcards are they are intepreted by the shell.
 
 ```bash
 $ echo *.fastq
@@ -382,11 +382,11 @@ The '*' is expanded to include any file that ends with '.fastq'
 Do each of the following using a single `ls` command without
 navigating to a different directory.
 
-1.  List all of the files in `/bin` that start with the letter 'c
+1.  List all of the files in `/bin` that start with the letter 'c'
 2.  List all of the files in `/bin` that contain the letter 'a'
 3.  List all of the files in `/bin` that end with the letter 'o'
 
-BONUS: List all of the files in '/bin' that contain the letter 'a' or 'c'
+BONUS: List all of the files in `/bin` that contain the letter 'a' or 'c'
 
 ****
 
@@ -429,7 +429,7 @@ $ !260
 **Exercise**
 
 1. Find the line number in your history for the last exercise (listing
-files in /bin) and reissue that command.
+files in `/bin`) and reissue that command.
 
 ****
 
@@ -461,6 +461,8 @@ This prints out the all the contents of the the `SRR098026.fastq` to the screen.
 
 * * * *
 
+So, let's be a little smarter here. First, move back to our `untrimmed_fastq` directory:
+
 ```bash
 $ cd ~/dc_sample_data/untrimmed_fastq
 ```
@@ -483,7 +485,7 @@ $ cd ~/dc_sample_data/untrimmed_fastq
 
 `less` also gives you a way of searching through files. Just hit the "/" key to begin a search. Enter the name of the word you would like to search for and hit enter. It will jump to the next location where that word is found. Try searching the `dictionary.txt` file for the word "cat". If you hit "/" then "enter", `less` will just repeat the previous search. `less` searches from the current location and works its way forward. If you are at the end of the file and search for the word "cat", `less` will not find it. You need to go to the beginning of the file and search.
 
-For instance, let's search for the sequence `GTGCGGGCAATTAACAGGGGTTCAC` in our file. You can see that we go right to that sequence and can see what it looks like.
+For instance, let's search for the sequence `GTGCGGGCAATTAACAGGGGTTCAC` in our file. You can see that we go right to that sequence and can see what it looks like. (Remember to hit 'q' to exit the `less` program)
 
 Remember, the `man` program actually uses `less` internally and
 therefore uses the same commands, so you can search documentation
@@ -542,7 +544,7 @@ We can now move our backed up file in to this directory. We can move files aroun
 
 ```bash
 $ mv *-copy.fastq backup
-ls -al backup
+$ ls -al backup
 total 52
 drwxrwxr-x 2 dcuser dcuser  4096 Jul 30 15:31 .
 drwxr-xr-x 3 dcuser dcuser  4096 Jul 30 15:31 ..
@@ -562,6 +564,7 @@ SRR098026-copy.fastq_DO_NOT_TOUCH!
 Finally, we decided this was silly and want to start over.
 
 ```bash
+$ cd ..
 $ rm backup/SRR*
 ```
 
@@ -577,7 +580,7 @@ Do the following:
 
 1.  Create a backup of your fastq files
 2.  Create a backup directory 
-3.  Copr your backup files there
+3.  Copy your backup files there
 
 * * * *
 
@@ -604,7 +607,7 @@ Now you have something that looks like
 
 Type in your command, so it looks like
 
-![nano2.png](../img/nano2.png)
+![nano2.png](../img/nano-awesome.png)
 
 Now we want to save the file and exit. At the bottom of nano, you see the "\^X Exit". That means that we use Ctrl-X to exit. Type `Ctrl-X`. It will ask if you want to save it. Type `y` for yes. Then it asks if you want that file name. Hit 'Enter'.
 
