@@ -91,13 +91,13 @@ the `grep` command through `less`
 Now we can use the arrows to scroll up and down and use `q` to get out.
 
 We can also do something tricky and use the command `wc`. `wc` stands for
-`word count`. It counts the number of lines or characters. So, we can use
+*word count*. It counts the number of lines or characters. So, we can use
 it to count the number of lines we're getting back from our `grep` command.
 And that will magically tell us how many sequences we're finding. We're
 
     grep -B1 -A2 NNNNNNNNNN SRR098026.fastq | wc
 
-That tells us the number of lines, words and characters in the file. If we
+This command tells us the number of lines, words and characters in the file. If we
 just want the number of lines, we can use the `-l` flag for `lines`.
 
     grep -B1 -A2 NNNNNNNNNN SRR098026.fastq | wc -l
@@ -117,7 +117,7 @@ learn to become proficient with the pipe and redirection operators:
 Finally, let's use the new tools in our kit and a few new ones to example our SRA metadata file.
 
     cd 
-    cd dc_sample_data/
+    cd dc_sample_data/sra_metadata
 
 Let's ask a few questions about the data
 
@@ -125,19 +125,19 @@ Let's ask a few questions about the data
 
 First, what are the column headers?
 
-    head -n 1 SraRunTable.txt
+    $ head -n 1 SraRunTable.txt
     BioSample_s	InsertSize_l	LibraryLayout_s	Library_Name_s	LoadDate_s	MBases_l	MBytes_l	ReleaseDate_s Run_s SRA_Sample_s Sample_Name_s Assay_Type_s AssemblyName_s BioProject_s Center_Name_s Consent_s Organism_Platform_s SRA_Study_s g1k_analysis_group_s g1k_pop_code_s source_s strain_s
 
 That's only the first line but it is a lot to take in.  'cut' is a program that will extract columns in tab-delimited
 files.  It is a very good command to know.  Lets look at just the first four columns in the header using the '|' readirect
 and 'cut'
 
-    head -n 1 SraRunTable.txt | cut -f1-4
+    $ head -n 1 SraRunTable.txt | cut -f1-4
     BioSample_s InsertSize_l      LibraryLayout_s	Library_Name_s    
 
 '-f1-4' means to cut the first four fields (columns).  The LibraryLayout_s column looks promising.  Let's look at some data for just that column.
 
-    cut -f3 SraRunTable.txt | head -n 10
+    $ cut -f3 SraRunTable.txt | head -n 10
     LibraryLayout_s
     SINGLE
     SINGLE
@@ -152,7 +152,7 @@ and 'cut'
 We can see that there are (at least) two categories, SINGLE and PAIRED.  We want to search all entries in this column
 for just PAIRED and count the number of hits.
 
-    cut -f3 SraRunTable.txt | grep PAIRED | wc -l
+    $ cut -f3 SraRunTable.txt | grep PAIRED | wc -l
     2
 
 2) How many of each class of library layout are there?
@@ -165,7 +165,7 @@ header and sort the values.  The '-v' option for greap means return all lines th
 This returns a sorted list (too long to show here) of PAIRED and SINGLE values.  Now we can use 'uniq' with the '-c' flag to
 count the different categories.
 
-    cut -f3 SraRunTable.txt | grep -v LibraryLayout_s |	sort | uniq -c
+    $ cut -f3 SraRunTable.txt | grep -v LibraryLayout_s |	sort | uniq -c
       2 PAIRED
      35 SINGLE 
 
@@ -173,12 +173,15 @@ count the different categories.
    We can use if '-k' option for sort to specify which column to sort on.  Note that this does something
    similar to cut's '-f'.
 
+    # peek first before saving
+    sort -k3 SraRunTable.txt | head
+    # now save it
     sort -k3 SraRunTable.txt > SraRunTable_sorted_by_layout.txt
 
 4) Extract only paired end records into a new file
    Do we know PAIRED only occurs in column 4?  WE know there are only two in the file, so let's check.
 
-    grep PAIRED SraRunTable.txt | wc -l
+    $ grep PAIRED SraRunTable.txt | wc -l
     2
 
 OK, we are good to go.
@@ -196,7 +199,7 @@ OK, we are good to go.
 3) Filter subsets into new files bases on load date
 ****
 
- 
+<!--  INSERT SECTION ON MAKING A RUDIMENTARY SCRIPT HERE  -->
 
 
 ## Where can I learn more about the shell?
