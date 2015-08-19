@@ -64,12 +64,12 @@ to a file, so that we can look at it later.
 The redirection command for putting something in a file is `>`
 
 Let's try it out and put all the sequences that contain 'TTATCCGGATTTATTGGGTTTAAAGGGT'
-from all the files in to another file called 'good-data.txt'
+from all the files in to another file called `bad_reads.txt`
 
     grep -B1 -A2 NNNNNNNNNN SRR098026.fastq > bad_reads.txt
 
 The prompt should sit there a little bit, and then it should look like nothing
-happened. But type `ls`. You should have a new file called good-data.txt. Take
+happened. But type `ls`. You should have a new file called `bad_reads.txt`. Take
 a look at it and see if it has what you think it should.
 
 If we use '>>', it will append to rather tha overwrite a file.  This can be useful for
@@ -158,7 +158,7 @@ for just PAIRED and count the number of hits.
 2) How many of each class of library layout are there?
 
 We can use some new tools 'sort' and 'uniq' to extract more information.  For example, cut the third column, remove the
-header and sort the values.  The '-v' option for greap means return all lines that DO NOT match.
+header and sort the values.  The '-v' option for grep means return all lines that DO NOT match.
 
     cut -f3 SraRunTable.txt | grep -v LibraryLayout_s | sort
     

@@ -605,7 +605,13 @@ Now you have something that looks like
 
 ![nano1.png](../img/nano1.png)
 
-Type in your command, so it looks like
+Type in your command:
+
+```bash
+grep -A 3 -B 1 GTGCGGGCAATTAACAGGGGTTCAC SRR098026.fastq
+```
+
+ so it looks like
 
 ![nano2.png](../img/nano-awesome.png)
 
