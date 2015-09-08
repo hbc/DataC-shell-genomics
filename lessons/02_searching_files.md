@@ -5,13 +5,21 @@ comments: true
 date: 2015-07-30
 ---
 
-# The Shell
+# The Shell: Searching and Finding
 
-Author: Sheldon McKay
+Author: Sheldon McKay, Bob Freeman
 
 Adapted from the lesson by Tracy Teal.
-Original contributors:
-Paul Wilson, Milad Fatenejad, Sasha Wood and Radhika Khetani for Software Carpentry (http://software-carpentry.org/)
+Contributors: Paul Wilson, Milad Fatenejad, Sasha Wood, and Radhika Khetani for Software Carpentry (http://software-carpentry.org/)
+
+Approximate time: 60 minutes
+
+## Objectives & Accomplishments
+
+* learn the `grep` command and useful options
+* learn about output redirection 
+* use the pipe (`|`) character to chain together commands
+* construct several custom versions of the SraRunTable
 
 ## Searching files
 
