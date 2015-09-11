@@ -1,6 +1,6 @@
 --
 layout: page
-title: "The Shell"
+title: "The Shell: Loops & Scripts"
 comments: true
 date: 2015-09-08
 ---
@@ -24,7 +24,7 @@ SRARunTable files as a part of the interrogation process? Even better, could we 
 for each set of data that comes in, without having to manually re-type the commands?
 Welcome to the beauty and purpose of looping and automating with shell scripts! Read on!
 
-Looping
+## Loops and bash variables
 
 Right now we've used `grep` and redirecton (`>`) to capture all the bad reads that are present in
 one FASTQ file. And you've seen that you can use the grep pattern matching (glob) character
@@ -32,59 +32,72 @@ one FASTQ file. And you've seen that you can use the grep pattern matching (glob
 in batch, or all at once, without fine grain, one-by-one control. That's where
 looping comes in.
 
-Looping in bash is very similar to other languages. let's dive right in:
+Looping in bash is very similar to other languages. Let's dive right in:
 
+```bash
 for filename in SRR098023.fastq SRR098023.fastq
 do
-echo $filename
+  echo $filename
 done
+```
 
-So what does this do? Well, first we specify a list of files: SR** and SR**. Then, we execute a series of command between the do and done. But we execute these commands for each item in this list, and we store in a placeholder, filename, each item every we do the set of commands. In essesnce, we loop through the list, executing the commands inside the do / done, with the value of filename changing each time.
+So what does this do? Well, first we specify a list of files: SR** and SR**. Then, we execute a series of command between the `do` and `done`. But we execute these commands for each item in this list. Moreover, we store in the placeholder, or variable, named `filename` the next FASTQ filename for each time we execute the set of commands. In essence, we loop through the list, executing the commands inside the `do` / `done` block, with the value of `filename` changing each time.
 
-Now also notice, in the 'for' statement, we refernece, or set 'filename'. but in the loop, we explicitly use $filename. Why? Well, in the former, we're setting the value. In the latter, we're retrieving the vavlue.
+You may have noticed in the `for` statement we reference `filename`. But in the loop, we explicitly use `$filename`. Why? Well, in the former, we're setting the value, while in the latter, we're retrieving the value. This is standard bash notation for setting and getting variables. Forgetting the `$` when you want to retrieve the value of a variable is a common mistake. 
 
-Of course, filename is a great varialbe name. But it doesn't matter mcuh what we use:
+Of course, `filename` is a great variable name. But it doesn't matter what variable name we use:
 
+```bash
 for x in SRR098023.fastq SRR098023.fastq
 do
-echo $x
+  echo $x
 done
- 
-The only potential problem is that 'x' really doesn't mean much. In the long run, it's best to use a name that will help point out function, so your future self will understand what you are thinking now.
+```
 
-Looping over 2 files is great, but its rather inflexible. What can we do to grab a whole directory ofi files? Use the '*' notation:
+The only potential problem is that `x` has little meaning. In the long run, it's best to use a name that will help point out its function, so your future self will understand what you are thinking now.
 
+Looping over two files is great, but its rather inflexible. What notation can we use to grab a whole directory of files? Use the `*` notation!
+
+```bash
 for filename in SRR*.fastq
 do
-echo $filename
+  echo $filename
 done
+```
 
-Now we've made our looping list more flexible, and it will work on any umber of files. So let's put that to work:
+Now we've made our looping list more flexible, as it will work on any number of files. So let's put that to work:
 
-for filename in SRR*.fastq; do 
+```bash
+for filename in SRR*.fastq
+do 
   echo $filename; 
 
   # grab all the bad read records
   grep -B1 -A2 NNNNNNNNNN $filename > $filename-badreads.fastq
 done
+```
 
-In addition to the echo statemnt, we've included a comment -- lines that start with # -- and our grep statement that grabs bad reads and puts them in a new file. And we've specified a new filename with the variable $filename. So each iteration of the loop will grep a particular file and then output the bad reads to a new file that has that partiulcar filename as part of the new name.
+In addition to the `echo` statement, we've included a comment -- lines that start with `#` -- and our `grep` statement that finds bad reads and puts them into a new file. And we've specified a new filename with the variable `$filename`. So each iteration of the loop will `grep` a particular file and then output the bad reads to a new file that uses particular filename as part of the new one.
 
-pretty simple and cool, huh?
+Pretty simple and cool, huh?
 
 ## Automating with Scripts
 
-Now that we've learned how to use loops and variables, let's put this processing power to work. Imagine, if you will, a series of commands that would do the following for us each time we get a new data set:
+Now that you've learned how to use loops and variables, let's put this processing power to work. Imagine, if you will, a series of commands that would do the following for us each time we get a new data set:
 
-use for loop to iterate over each FASTQ file. 
-dump out bad reads
-get the count of bad reads.
-After all the FASTQ files are process, we generate one summary file of bad read coutns file.
+- Use for loop to iterate over each FASTQ file
+- Dump out bad reads into a new file
+- Get the count of the number of bad reads
+- And after all the FASTQ files are processed, we generate one summary file of the bad read counts
 
-You might not realize this, but this is something that you now know how to do. Let's get started... Move to our sample data directory and use nano to create our new script file...
+You might not realize this, but this is something that you now know how to do. Let's get started...
 
-cd cd ~/dc_sample_data
+Move to our sample data directory and use `nano` to create our new script file...
+
+```bash
+cd ~/dc_sample_data
 nano generate_bad_reads_summary.sh
+```
 
 And now we enter the command we want to execute. First we want to move into our untrimmed_fastq direcotry
 
