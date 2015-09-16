@@ -35,20 +35,23 @@ looping comes in.
 Looping in bash is very similar to other languages. Let's dive right in:
 
 ```bash
-for filename in SRR098023.fastq SRR098023.fastq
+# move to our untrimmed directory
+cd ~/dc_sample_data/untrimmed_fastq
+
+for filename in SRR098026.fastq SRR0980267.fastq
 do
   echo $filename
 done
 ```
 
-So what does this do? Well, first we specify a list of files: SR** and SR**. Then, we execute a series of command between the `do` and `done`. But we execute these commands for each item in this list. Moreover, we store in the placeholder, or variable, named `filename` the next FASTQ filename for each time we execute the set of commands. In essence, we loop through the list, executing the commands inside the `do` / `done` block, with the value of `filename` changing each time.
+So what does this do? Well, first we specify a list of files: `SRR098026.fastq` and `SRR0980267.fastq`. Then, we execute a series of command between the `do` and `done`. But we execute these commands for each item in this list. Moreover, we store in the placeholder, or variable, named `filename` the next FASTQ filename for each time we execute the set of commands. In essence, we loop through the list, executing the commands inside the `do` / `done` block, with the value of `filename` changing each time.
 
 You may have noticed in the `for` statement we reference `filename`. But in the loop, we explicitly use `$filename`. Why? Well, in the former, we're setting the value, while in the latter, we're retrieving the value. This is standard bash notation for setting and getting variables. Forgetting the `$` when you want to retrieve the value of a variable is a common mistake. 
 
 Of course, `filename` is a great variable name. But it doesn't matter what variable name we use:
 
 ```bash
-for x in SRR098023.fastq SRR098023.fastq
+for x in SRR098026.fastq SRR0980267.fastq
 do
   echo $x
 done
@@ -92,54 +95,68 @@ Now that you've learned how to use loops and variables, let's put this processin
 
 You might not realize this, but this is something that you now know how to do. Let's get started...
 
-Move to our sample data directory and use `nano` to create our new script file...
+Move to our sample data directory and use `nano` to create our new script file:
 
 ```bash
 cd ~/dc_sample_data
 nano generate_bad_reads_summary.sh
 ```
 
-And now we enter the command we want to execute. First we want to move into our untrimmed_fastq direcotry
+And now we enter the commands we want to execute. First we want to move into our `untrimmed_fastq` directory:
 
+```bash
 cd untrimmed_fastq
+```
 
-And now we loop over all the FASTQs
+And now we loop over all the FASTQs:
 
+```bash
 for filename in SRR*.fastq
+```
 
 and we execute the commands for each loop:
 
+```bash
 do
   # tell us what file we're working on
   echo $filename
   
-  # grab all the bad reads records
+  # grab all the bad read records into new file
   grep -B1 -A2 NNNNNNNNNN $file > $file-badreads.fastq
+``` 
   
-We'll also get the counts of these reads and put that in a new file, using the grep -c 
+We'll also get the counts of these reads and put that in a new file, using the count flag of `grep`:
 
+```bash
   # grab the # of bad reads from our badreads file
   grep -cH NNNNNNNNNN $file-badreads.fastq > $file-badreads.counts
 done
+```
 
-If you've noticed, we slipped a new grep flag -H in there. This flag will report when its found a match what the name of the filename is that we're curerntly woring on. This won't matter within each file, but it will matter when we generate the summary:
+If you've noticed, we slipped a new `grep` flag `-H` in there. This flag will report the filename along with the match string. This won't matter within each file, but it will matter when we generate the summary:
 
+```bash
 # grab all our bad read info to a summary file
 cat *.counts > bad-reads.count.summary
+```
 
-And now, per our good form of caputing all of our work into a running summary log...
+And now, as a best practice of capturing all of our work into a running summary log:
 
+```bash
 # and add this summary to our run log
 cat bad-reads.count.summary >> ../runlog.txt
+```
 
-And in good form, at the end of the script, let's return to the directory we started from
+And in good form, at the end of the script, let's return to the directory we started from:
 
+```bash
 # go back from whence we came
 cd ..
+```
 
-Exit out of nano, and voila! You now have a sciptr you can use to assess the quality of all your new data asets. Your finished script should look liek this (complete with comments)
+Exit out of `nano`, and voila! You now have a script you can use to assess the quality of all your new datasets. Your finished script, complete with comments, should look like the following:
 
-
+```bash
 # work on untrimmed FASTQs
 cd untrimmed_fastq
 
@@ -162,14 +179,17 @@ cat bad-reads.count.summary >> ../runlog.txt
 
 # go back from whence we came
 cd ..
+```
 
 To run this script, we simply enter the following command:
 
+```bash
 bash generate_bad_reads_summary.sh
+```
 
 Exercises:
 * what would you need to do it you wanted...
-* add to your script a section to generate the special SRARunTable files that we did towards the end of teh Searching Files lesson.
+* Add to your script `generate_bad_reads_summary.sh` a section to generate the special SRARunTable files that we did towards the end of the Searching Files lesson.
 
 
 
