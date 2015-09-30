@@ -270,9 +270,9 @@ Tab completion can also fill in the names of programs. For example, enter `e<tab
 
 The `cd` command takes an argument which is the directory name. Directories can be specified using either a *relative* path or a full *path*. The directories on the computer are arranged into a hierarchy. The full path tells you where a directory is in that hierarchy. Navigate to the home directory (`cd`). Now, enter the `pwd` command and you should see:
 
-```-bash-4.1$ pwd```
+`-bash-4.1$ pwd`
 
-```/home/username```
+`/home/username`
 
 which is the full name of your home directory. This tells you that you are in a directory called `username`, which sits inside a directory called `home` which sits inside the very top directory in the hierarchy. The very top of the hierarchy is a directory called `/` which is usually referred to as the *root directory*. So, to summarize: `username` is a directory in `home` which is a directory in `/`.
 
@@ -569,7 +569,7 @@ a file that contains the favorite grep command so you can remember it for later.
 
 Now you have something that looks like
 
-![nano1.png](../img/nano1.png)
+![nano1.png](../img/nano1)
 
 Type in your command:
 
@@ -577,7 +577,7 @@ Type in your command:
 
  so it looks like
 
-![nano2.png](../img/nano-awesome.png)
+![nano2.png](../img/nano2)
 
 Now we want to save the file and exit. At the bottom of nano, you see the "\^X Exit". That means that we use Ctrl-X to exit. Type `Ctrl-X`. It will ask if you want to save it. Type `y` for yes. Then it asks if you want that file name. Hit 'Enter'.
 
