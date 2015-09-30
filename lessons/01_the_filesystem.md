@@ -58,64 +58,85 @@ a shell command are doing.
 * [http://www.commandlinefu.com](http://www.commandlinefu.com)
 
 
-## Starting with the shell
+## Setting up
 
 We will spend most of our time learning about the basics of the shell by manipulating some experimental data.
 
-Now we're going to download the data for the tutorial. For this you'll need internet access, because you're going to get it off the web.  
+Since we are going to be working with this data on our remote server, **Orchestra**, we first need to log onto the server. After we're logged on, we will each make our own copy of the example data folder.
 
-We're going to be working with data on our remote server. After logging on, we'll check out the example data.
+### Logging onto Orchestra with Macs
 
-Let's go into the sample data  directory
+Using the Terminal, you can use the command 'ssh' and your ECommons username to login. Type:
 
-```bash
-$ cd ~/dc_sample_data
-```
+```ssh username@orchestra.med.harvard.edu```
+
+You will receive a prompt for your password, and you should type in your ECommons password. 
+
+### Logging onto Orchestra with Windows -- Incomplete (Radhika)
+
+Using Putty, ...
+
+You will receive a prompt for your password, and you should type in your ECommons password. 
+
+### Copying example data folder
+
+Once logged in, you should see the Orchestra news and the prompt: 
+
+```-bash-4.1$ ``` 
+
+Copy our example data folder to your home directory using the following command:
+
+```-bash-4.1$ cp -r /groups/hbctraining/unix_oct2015/ ~```
+
+## Starting with the shell
+
+We have each created our own copy of the example data folder, **unix_oct2015**. Let's go into the data folder and explore the data using the shell.
+
+```-bash-4.1$ cd ~/unix_oct2015```
 
 'cd' stands for 'change directory'
 
-Let's see what is in here. Type
+Let's see what is in here. Type:
 
-```bash
-$ ls
-```
+```-bash-4.1$ ls```
 
-You will see
-```bash
-    sra_metadata  untrimmed_fastq
-```
+You will see:
+
+```genomics_data  other  raw_fastq  README.txt  reference_data```
 
 ls stands for 'list' and it lists the contents of a directory.
 
-There are two items listed.  What are they? We can use a command line argument with `ls` to get more information.
+There are five items listed.  What are they? We can use a command line argument with `ls` to get more information.
 
-```bash
-$ ls -F
-sra_metadata/  untrimmed_fastq/
-```
+```-bash-4.1$ ls -F```
+
+```genomics_data/  other/  raw_fastq/  README.txt  reference_data/```
 
 Anything with a "/" after it is a directory. Things with a "*" after them are programs.  If there are no decorations, it's a file.
 
 You can also use the command
 
-```bash
-$ ls -l
-drwxr-x--- 2 dcuser sudo 4096 Jul 30 11:37 sra_metadata
-drwxr-xr-x 2 dcuser sudo 4096 Jul 30 11:38 untrimmed_fastq
-```
+```-bash-4.1$ ls -l```
+
+```total 124
+drwxrwsr-x 2 mp298 mp298  78 Sep 30 10:47 genomics_data
+drwxrwsr-x 6 mp298 mp298 107 Sep 30 10:47 other
+drwxrwsr-x 2 mp298 mp298 228 Sep 30 10:47 raw_fastq
+-rw-rw-r-- 1 mp298 mp298 377 Sep 30 10:47 README.txt
+drwxrwsr-x 2 mp298 mp298 238 Sep 30 10:47 reference_data```
 
 to see whether items in a directory are files or directories. `ls -l` gives a lot more
 information too.
 
-Let's go into the untrimmed_fastq directory and see what is in there.
+Let's go into the raw_fastq directory and see what is in there.
 
-```bash
-$ cd untrimmed_fastq
-$ ls -F
-SRR097977.fastq  SRR098026.fastq
-```
+```-bash-4.1$ cd raw_fastq/```
 
-There are two items in this directory with no trailing slash, so they are files.
+```-bash-4.1$ ls -F```
+``` Irrel_kd_1.subset.fq  Irrel_kd_3.subset.fq  Mov10_oe_2.subset.fq
+    Irrel_kd_2.subset.fq  Mov10_oe_1.subset.fq  Mov10_oe_3.subset.fq```
+
+All six items in this directory have no trailing slashes, so they are all files.
 
 
 ## Arguments
@@ -125,9 +146,7 @@ Most programs take additional arguments that control their exact behavior. For e
 Most commonly used shell programs have a manual. You can access the
 manual using the `man` program. Try entering:
 
-```bash
-$ man ls
-```
+```-bash-4.1$ man ls```
 
 This will open the manual page for `ls`. Use the space key to go forward and b to go backwards. When you are done reading, just hit `q` to quit.
 
@@ -145,10 +164,10 @@ When you're working with bioinformatics programs, you're working with your data 
 
 Let's practice moving around a bit.
 
-We're going to work in that `dc_sample_data` directory.
+We're going to work in that `unix_oct2015` directory.
 
 First we did something like go to the folder of our username. Then we opened
-'dc_sample_data' then 'untrimmed_fastq'
+`unix_oct2015` then `raw_fastq`
 
 Let's draw out how that went.
 
@@ -163,46 +182,41 @@ with root (/) at the base that looks like this.
 That (/) at the base is often also called the 'top' level.
 
 When you are working at your computer or log in to a remote computer,
-you are on one of the branches of that tree, your home directory (e.g. /home/dcuser)
+you are on one of the branches of that tree, your home directory (e.g. /home/username)
 
 Now let's go do that same navigation at the command line.
 
 Type
 
-```bash
-$ cd
-```
+```-bash-4.1$ cd```
 
 This puts you in your home directory. This folder here.
 
-Now using `cd` and `ls`, go in to the `dc_sample_data` directory and list its contents. Now go into the `untrimmed_fastq` and list its contents.
+Now using `cd` and `ls`, go in to the `unix_oct2015` directory and list its contents. Now go into the `raw_fastq` and list its contents.
 
 Let's also check to see where we are. Sometimes when we're wandering around in the file system, it's easy to lose track of where we are and get lost.
 
 If you want to know what directory you're currently in, type
 
-```bash
-$ pwd
-```
+```-bash-4.1$ pwd```
+
 This stands for 'print working directory'. The directory you're currently working in.
 
-What if we want to move back up and out of the `untrimmed_fastq` directory? Can we just type `cd dc_sample_data`? Try it and see what happens.
+What if we want to move back up and out of the `raw_fastq` directory? Can we just type `cd unix_oct2015`? Try it and see what happens.
 
 To go 'back up a level' we need to use `..`
 
 Type
 
-```bash
-$ cd ..
-```
+```-bash-4.1$ cd ..```
 
-Now do `ls` and `pwd`. See now that we went back up in to the `dc_sample_data`
+Now do `ls` and `pwd`. See now that we went back up in to the `unix_oct2015`
 directory. `..` means go back up a level.
 
 * * * *
 **Exercise**
 
-Now we're going to try a hunt. Find a hidden directory in `dc_sample_data` list its contents, and find the text file in there.  What is the name of the file?
+Now we're going to try a hunt. Find a hidden directory in `unix_oct2015` list its contents, and find the text file in there.  What is the name of the file?
 
 Hint: hidden files and folders in unix start with `.`, for example `.my_hidden_directory`
 * * * *
@@ -214,47 +228,39 @@ By default, the `ls` commands lists the contents of the working directory (i.e. 
 
 Type:
 
-```bash
-$ cd
-```
+```-bash-4.1$ cd```
+
 Then enter the command:
 
-```bash
-$ ls dc_sample_data
-```
+```-bash-4.1$ ls unix_oct2015/```
 
-This will list the contents of the `dc_sample_data` directory without you having to navigate there.
+This will list the contents of the `unix_oct2015` directory without you having to navigate there.
 
 The `cd` command works in a similar way. Try entering:
 
-```bash
-$ cd
-$ cd dc_sample_data/untrimmed_fastq
-```
+```-bash-4.1$ cd```
 
-and you will jump directly to `untrimmed_fastq` without having to go through the intermediate directory.
+```-bash-4.1$ cd unix_oct2015/raw_fastq/```
+
+and you will jump directly to `raw_fastq` without having to go through the intermediate directory.
 
 ****
 **Exercise**
 
-List the `SRR097977.fastq` file from your home directory without changing directories
+List the `Mov10_oe_1.subset.fq` file from your home directory without changing directories
 ****
 
 ### Shortcut: Tab Completion
 
 Navigate to the home directory. Typing out directory names can waste a lot of time. When you start typing out the name of a directory, then hit the tab key, the shell will try to fill in the rest of the directory name. For example, type `cd` to get back to your home directly, then enter:
 
-```bash
-$ cd dc_<tab>
-```
+```-bash-4.1$ cd uni<tab>```
 
-The shell will fill in the rest of the directory name for `dc_sample_data`. Now go to `dc_sample_data/untrimmed_fastq` and 
+The shell will fill in the rest of the directory name for `unix_oct2015`. Now go to `unix_oct2015/raw_fastq` and 
 
-```bash
-$ ls SR<tab><tab>
-```
+```-bash-4.1$ ls Mov10_oe_<tab><tab>```
 
-When you hit the first tab, nothing happens. The reason is that there are multiple directories in the home directory which start with `SR`. Thus, the shell does not know which one to fill in. When you hit tab again, the shell will list the possible choices.
+When you hit the first tab, nothing happens. The reason is that there are multiple directories in the home directory which start with `Mov10_oe_`. Thus, the shell does not know which one to fill in. When you hit tab again, the shell will list the possible choices.
 
 Tab completion can also fill in the names of programs. For example, enter `e<tab><tab>`. You will see the name of every program that starts with an `e`. One of those is `echo`. If you enter `ec<tab>` you will see that tab completion works.
 
@@ -264,27 +270,22 @@ Tab completion can also fill in the names of programs. For example, enter `e<tab
 
 The `cd` command takes an argument which is the directory name. Directories can be specified using either a *relative* path or a full *path*. The directories on the computer are arranged into a hierarchy. The full path tells you where a directory is in that hierarchy. Navigate to the home directory (`cd`). Now, enter the `pwd` command and you should see:
 
-```bash
-$ pwd
-/home/dcuser
-```
+```-bash-4.1$ pwd```
 
-which is the full name of your home directory. This tells you that you are in a directory called `dcuser`, which sits inside a directory called `home` which sits inside the very top directory in the hierarchy. The very top of the hierarchy is a directory called `/` which is usually referred to as the *root directory*. So, to summarize: `dcuser` is a directory in `home` which is a directory in `/`.
+```/home/username```
+
+which is the full name of your home directory. This tells you that you are in a directory called `username`, which sits inside a directory called `home` which sits inside the very top directory in the hierarchy. The very top of the hierarchy is a directory called `/` which is usually referred to as the *root directory*. So, to summarize: `username` is a directory in `home` which is a directory in `/`.
 
 Now enter the following command:
 
-```bash
-$ cd /home/dcuser/dc_sample_data/.hidden
-```
+```-bash-4.1$ cd /home/username/unix_oct2015/.my_hidden_directory```
 
-This jumps to `.hidden`. Now go back to the home directory (`cd`). We saw
+This jumps to `.my_hidden_directory`. Now go back to the home directory (`cd`). We saw
 earlier that the command:
 
-```bash
-$ cd dc_sample_data/.hidden
-```
+```-bash-4.1$ cd unix_oct2015/.my_hidden_directory/```
 
-had the same effect - it took us to the `hidden` directory. But, instead of specifying the full path (`/home/dcuser/dc_sample_data/data`), we specified a *relative path*. In other words, we specified the path relative to our current directory. A full path always starts with a `/`. A relative path does not.
+had the same effect - it took us to the `my_hidden_directory` directory. But, instead of specifying the full path (`/home/username/unix_oct2015/.my_hidden_directory`), we specified a *relative path*. In other words, we specified the path relative to our current directory. A full path always starts with a `/`. A relative path does not.
 
 A relative path is like getting directions from someone on the street. They tell you to "go right at the Stop sign, and then turn left on Main Street". That works great if you're standing there together, but not so well if you're trying to tell someone how to get there from another country. A full path is like GPS coordinates. It tells you exactly where something is no matter where you are right now.
 
@@ -304,35 +305,28 @@ How can you tell these are programs rather than plain files?
 
 There are some shortcuts which you should know about. Dealing with the
 home directory is very common. So, in the shell the tilde character,
-"~", is a shortcut for your home directory. Navigate to the `dc_sample_data`
+"~", is a shortcut for your home directory. Navigate to the `raw_fastq`
 directory:
 
-```bash
-$ cd
-$ cd dc_sample_data
-```
+```-bash-4.1$ cd```
+
+```-bash-4.1$ cd unix_oct2015/raw_fastq```
 
 Then enter the command:
 
-```bash
-$ ls ~
-```
+```21. -bash-4.1$ ls ~```
 
 This prints the contents of your home directory, without you having to type the full path. The shortcut `..` always refers to the directory above your current directory. Thus:
 
-```bash
-$ ls ..
-```
+```-bash-4.1$ ls ..```
 
-prints the contents of the `/home/dcuser/dc_sample_data`. You can chain these together, so:
+prints the contents of the `/home/username/unix_oct2015`. You can chain these together, so:
 
-```bash
-$ ls ../../
-```
+```-bash-4.1$ ls ../..```
 
-prints the contents of `/home/dcuser` which is your home directory. Finally, the special directory `.` always refers to your current directory. So, `ls`, `ls .`, and `ls ././././.` all do the same thing, they print the contents of the current directory. This may seem like a useless shortcut right now, but we'll see when it is needed in a little while.
+prints the contents of `/home/username` which is your home directory. Finally, the special directory `.` always refers to your current directory. So, `ls`, `ls .`, and `ls ././././.` all do the same thing, they print the contents of the current directory. This may seem like a useless shortcut right now, but we'll see when it is needed in a little while.
 
-To summarize, while you are in your home directory, the commands `ls ~`, `ls ~/.`, `ls ../../`, and `ls /home/dcuser` all do exactly the same thing. These shortcuts are not necessary, they are provided for your convenience.
+To summarize, while you are in your home directory, the commands `ls ~`, `ls ~/.`, `ls ../../`, and `ls /home/username` all do exactly the same thing. These shortcuts are not necessary, they are provided for your convenience.
 
 ### Our data set: FASTQ files
 
@@ -341,39 +335,32 @@ We did an experiment and want to look at sequencing results. We want to be able 
 
 ### Wild cards
 
-Navigate to the `~/dc_sample_data/untrimmed_fastq` directory. This
+Navigate to the `~/unix_oct2015/raw_fastq` directory. This
 directory contains our FASTQ files.
 
 The '*' character is a shortcut for "everything". Thus, if you enter `ls *`, you will see all of the contents of a given directory. Now try this command:
 
-```bash
-$ ls *fastq
-```
+```-bash-4.1$ ls *fq```
 
-This lists every file that ends with a `fastq`. This command:
+This lists every file that ends with a `fq`. This command:
 
-```bash
-$ ls /usr/bin/*.sh
-```
+```-bash-4.1$ ls /usr/bin/*.sh```
 
 Lists every file in `/usr/bin` that ends in the characters `.sh`.
 
-```bash
-$ ls *977.fastq
-```
+```-bash-4.1$ ls Mov10*fq```
 
-lists only the file that ends with '977.fastq'
+lists only the files that begin with 'Mov10' and end with 'fq'
 
 So how does this actually work? Well...when the shell (bash) sees a word that contains the `*` character, it automatically looks for filenames that match the given pattern. 
 
 We can use the command `echo` to see wilcards are they are intepreted by the shell.
 
-```bash
-$ echo *.fastq
-SRR097977.fastq SRR098026.fastq
-```
+```-bash-4.1$ echo *.fq```
 
-The '*' is expanded to include any file that ends with '.fastq'
+```Irrel_kd_1.subset.fq Irrel_kd_2.subset.fq Irrel_kd_3.subset.fq Mov10_oe_1.subset.fq Mov10_oe_2.subset.fq Mov10_oe_3.subset.fq```
+
+The '*' is expanded to include any file that ends with '.fq'
 
 
 ****
@@ -402,9 +389,7 @@ is very useful.
 
 You can also review your recent commands with the `history` command.  Just enter:
 
-```bash
-$ history
-```
+```-bash-4.1$ history```
 
 to see a numbered list of recent commands, including this just issues
 `history` command.  You can reuse one of these commands directly by
@@ -414,13 +399,11 @@ If your history looked like this:
 
     259  ls *
     260  ls /usr/bin/*.sh
-    261  ls *R1*fastq
+    261  ls *fq
 
 then you could repeat command #260 by simply entering:
 
-```bash
-$ !260
-```
+```-bash-4.1$ !260```
 
 
 (that's an exclamation mark).  You will be glad you learned this when you try to re-run very complicated commands.
@@ -441,35 +424,31 @@ We now know how to switch directories, run programs, and look at the
 contents of directories, but how do we look at the contents of files?
 
 The easiest way to examine a file is to just print out all of the
-contents using the program `cat`. Enter the following command:
+contents using the program `cat`. Change directories to the unix_oct2015/raw_fastq/ and enter the following command:
 
-```bash
-$ cat SRR098026.fastq
-```
+```-bash-4.1$ cat Mov10_oe_1.subset.fq```
 
-This prints out the all the contents of the the `SRR098026.fastq` to the screen.
+This prints out the all the contents of the the `Mov10_oe_1.subset.fq` to the screen.
 
 * * * *
 **Exercises**
 
-1.  Print out the contents of the `~/dc_sample_data/untrimmed_fastq/SRR097977.fastq`
+1.  Print out the contents of the `~/unix_oct2015/raw_fastq/Mov10_oe_2.subset.fq`
     file. What does this file contain?
 
 2.  From your home directory, without changing directories,
     use one short command to print the contents of all of the files in
-    the `/home/dcuser/dc_sample_data/untrimmed_fastq` directory.
+    the `~/unix_oct2015/raw_fastq/` directory.
 
 * * * *
 
-So, let's be a little smarter here. First, move back to our `untrimmed_fastq` directory:
+So, let's be a little smarter here. First, move back to our `raw_fastq` directory:
 
-```bash
-$ cd ~/dc_sample_data/untrimmed_fastq
-```
+```b-bash-4.1$ cd ~/unix_oct2015/raw_fastq/```
 
 `cat` is a terrific program, but when the file is really big, it can be annoying to use. The program, `less`, is useful for this case. Enter the following command:
 
-    less SRR098026.fastq
+    less Mov10_oe_1.subset.fq
 
 `less` opens the file, and lets you navigate through it. The commands are identical to the `man` program.
 
@@ -483,9 +462,9 @@ $ cd ~/dc_sample_data/untrimmed_fastq
 |  "G"    | to go to the end |
 |  "q"    | to quit |
 
-`less` also gives you a way of searching through files. Just hit the "/" key to begin a search. Enter the name of the word you would like to search for and hit enter. It will jump to the next location where that word is found. Try searching the `dictionary.txt` file for the word "cat". If you hit "/" then "enter", `less` will just repeat the previous search. `less` searches from the current location and works its way forward. If you are at the end of the file and search for the word "cat", `less` will not find it. You need to go to the beginning of the file and search.
+`less` also gives you a way of searching through files. Just hit the "/" key to begin a search. Enter the name of the word you would like to search for and hit enter. It will jump to the next location where that word is found. If you hit "/" then "enter", `less` will just repeat the previous search. `less` searches from the current location and works its way forward. If you are at the end of the file and search for the word "cat", `less` will not find it. You need to go to the beginning of the file and search.
 
-For instance, let's search for the sequence `GTGCGGGCAATTAACAGGGGTTCAC` in our file. You can see that we go right to that sequence and can see what it looks like. (Remember to hit 'q' to exit the `less` program)
+For instance, let's search for the sequence `GAGACCCCACGGGAGGCCA` in our file. You can see that we go right to that sequence and can see what it looks like. (Remember to hit 'q' to exit the `less` program)
 
 Remember, the `man` program actually uses `less` internally and
 therefore uses the same commands, so you can search documentation
@@ -498,20 +477,15 @@ to see the beginning or end of the file, or see how it's formatted.
 The commands are `head` and `tail` and they just let you look at
 the beginning and end of a file respectively.
 
-```bash
-$ head SRR098026.fastq
-```
-```bash
-$ tail SRR098026.fastq
-```
+```-bash-4.1$ head Mov10_oe_1.subset.fq ```
+
+```-bash-4.1$ tail Mov10_oe_1.subset.fq```
+
 The `-n` option to either of these commands can be used to print the first or last `n` lines of a file. To print the first/last line of the file use:
 
-```bash
-$ head -n 1 SRR098026.fastq
-```
-```bash
-$ tail -n 1 SRR098026.fastq
-```
+```-bash-4.1$ head -n 1 Mov10_oe_1.subset.fq```
+
+```-bash-4.1$ tail -n 1 Mov10_oe_1.subset.fq```
 
 ## Creating, moving, copying, and removing
 
@@ -523,50 +497,46 @@ so let's make a copy to work with.
 
 Lets copy the file using the `cp` command. The `cp` command backs up the file. Navigate to the `data` directory and enter:
 
-```bash
-$ cp SRR098026.fastq SRR098026-copy.fastq
-$ ls -F
-SRR097977.fastq  SRR098026-copy.fastq  SRR098026.fastq 
-```
+```-bash-4.1$ cp Mov10_oe_1.subset.fq Mov10_oe_1.subset-copy.fq```
 
-Now ``SRR098026-copy.fastq`` has been created as a copy of `SRR098026.fastq`
+```-bash-4.1$ ls -F```
+
+Now ``Mov10_oe_1.subset-copy.fq`` has been created as a copy of `Mov10_oe_1.subset.fq`
 
 Let's make a 'backup' directory where we can put this file.
 
 The `mkdir` command is used to make a directory. Just enter `mkdir`
 followed by a space, then the directory name.
 
-```bash
-$ mkdir backup
-```
+```-bash-4.1$ mkdir backup```
 
 We can now move our backed up file in to this directory. We can move files around using the command `mv`. Enter this command:
 
-```bash
-$ mv *-copy.fastq backup
-$ ls -al backup
-total 52
-drwxrwxr-x 2 dcuser dcuser  4096 Jul 30 15:31 .
-drwxr-xr-x 3 dcuser dcuser  4096 Jul 30 15:31 ..
--rw-r--r-- 1 dcuser dcuser 43421 Jul 30 15:28 SRR098026-copy.fastq
-```
+```-bash-4.1$ mv *-copy.fq backup```
+
+```-bash-4.1$ ls -al backup```
+
+```drwxrwsr-x 2 mp298 mp298       43 Sep 30 13:59 .
+   drwxrwsr-x 8 mp298 mp298      203 Sep 30 13:58 ..
+   -rw-rw-r-- 1 mp298 mp298 75706556 Sep 30 13:56 Mov10_oe_1.subset-copy.fq```
 
 The `mv` command is also how you rename files. Since this file is so
 important, let's rename it:
 
-```bash
-$ cd backup
-$ mv SRR098026-copy.fastq SRR098026-copy.fastq_DO_NOT_TOUCH!
-$ ls 
-SRR098026-copy.fastq_DO_NOT_TOUCH!
+```-bash-4.1$ cd backup```
+
+``` -bash-4.1$ mv Mov10_oe_1.subset-copy.fq Mov10_oe_1.subset-copy.fq_DO_NOT_TOUCH!```
+
+```
+-bash-4.1$ ls
+Mov10_oe_1.subset-copy.fq_DO_NOT_TOUCH!
 ```
 
 Finally, we decided this was silly and want to start over.
 
-```bash
-$ cd ..
-$ rm backup/SRR*
-```
+```-bash-4.1$ cd ..```
+
+```-bash-4.1$ rm backup/Mov*```
 
 The `rm` file permanently removes the file. Be careful with this command. It doesn't
 just nicely put the files in the Trash. They're really gone.
@@ -586,9 +556,7 @@ Do the following:
 
 By default, `rm`, will NOT delete directories. You can tell `rm` to delete a directory using the `-r` option. Let's delete that `new` directory we just made. Enter the following command:
 
-```bash
-$ rm -r backup
-```
+```-bash-4.1$ rm -r backup/```
 
 ## Writing files
 
@@ -597,9 +565,7 @@ We've been able to do a lot of work with files that already exist, but what if w
 To write in files, we're going to use the program `nano`. We're going to create
 a file that contains the favorite grep command so you can remember it for later. We'll name this file 'awesome.sh'.
 
-```bash
-$ nano awesome.sh
-```
+```-bash-4.1$ nano awesome.sh```
 
 Now you have something that looks like
 
@@ -607,9 +573,7 @@ Now you have something that looks like
 
 Type in your command:
 
-```bash
-grep -A 3 -B 1 GTGCGGGCAATTAACAGGGGTTCAC SRR098026.fastq
-```
+```bash grep -A 3 -B 1 GAGACCCCACGGGAGGCCA Mov10_oe_1.subset.fq```
 
  so it looks like
 
