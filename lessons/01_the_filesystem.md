@@ -102,7 +102,7 @@ Let's see what is in here. Type:
 
 You will see:
 
-```genomics_data  other  raw_fastq  README.txt  reference_data```
+	genomics_data  other  raw_fastq  README.txt  reference_data
 
 ls stands for 'list' and it lists the contents of a directory.
 
@@ -110,7 +110,7 @@ There are five items listed.  What are they? We can use a command line argument 
 
 ```$ ls -F```
 
-```genomics_data/  other/  raw_fastq/  README.txt  reference_data/```
+	genomics_data/  other/  raw_fastq/  README.txt  reference_data/
 
 Anything with a "/" after it is a directory. Things with a "*" after them are programs.  If there are no decorations, it's a file.
 
@@ -118,12 +118,12 @@ You can also use the command
 
 ```$ ls -l```
 
-```total 124
-drwxrwsr-x 2 mp298 mp298  78 Sep 30 10:47 genomics_data
-drwxrwsr-x 6 mp298 mp298 107 Sep 30 10:47 other
-drwxrwsr-x 2 mp298 mp298 228 Sep 30 10:47 raw_fastq
--rw-rw-r-- 1 mp298 mp298 377 Sep 30 10:47 README.txt
-drwxrwsr-x 2 mp298 mp298 238 Sep 30 10:47 reference_data```
+	total 124
+	drwxrwsr-x 2 mp298 mp298  78 Sep 30 10:47 genomics_data
+	drwxrwsr-x 6 mp298 mp298 107 Sep 30 10:47 other
+	drwxrwsr-x 2 mp298 mp298 228 Sep 30 10:47 raw_fastq
+	-rw-rw-r-- 1 mp298 mp298 377 Sep 30 10:47 README.txt
+	drwxrwsr-x 2 mp298 mp298 238 Sep 30 10:47 reference_data
 
 to see whether items in a directory are files or directories. `ls -l` gives a lot more
 information too.
@@ -133,8 +133,9 @@ Let's go into the raw_fastq directory and see what is in there.
 ```$ cd raw_fastq/```
 
 ```$ ls -F```
-``` Irrel_kd_1.subset.fq  Irrel_kd_3.subset.fq  Mov10_oe_2.subset.fq
-    Irrel_kd_2.subset.fq  Mov10_oe_1.subset.fq  Mov10_oe_3.subset.fq```
+
+	Irrel_kd_1.subset.fq  Irrel_kd_3.subset.fq  Mov10_oe_2.subset.fq
+	Irrel_kd_2.subset.fq  Mov10_oe_1.subset.fq  Mov10_oe_3.subset.fq
 
 All six items in this directory have no trailing slashes, so they are all files.
 
@@ -176,9 +177,7 @@ Now let's draw some of the other files and folders we could have clicked on.
 This is called a hierarchical file system structure, like an upside down tree
 with root (/) at the base that looks like this.
 
-
 ![Unix](../img/Slide1.jpg)
-
 That (/) at the base is often also called the 'top' level.
 
 When you are working at your computer or log in to a remote computer,
@@ -358,7 +357,7 @@ We can use the command `echo` to see wilcards are they are intepreted by the she
 
 ```$ echo *.fq```
 
-```Irrel_kd_1.subset.fq Irrel_kd_2.subset.fq Irrel_kd_3.subset.fq Mov10_oe_1.subset.fq Mov10_oe_2.subset.fq Mov10_oe_3.subset.fq```
+	Irrel_kd_1.subset.fq Irrel_kd_2.subset.fq Irrel_kd_3.subset.fq Mov10_oe_1.subset.fq Mov10_oe_2.subset.fq Mov10_oe_3.subset.fq
 
 The '*' is expanded to include any file that ends with '.fq'
 
@@ -516,21 +515,20 @@ We can now move our backed up file in to this directory. We can move files aroun
 
 ```$ ls -al backup```
 
-```drwxrwsr-x 2 mp298 mp298       43 Sep 30 13:59 .
-   drwxrwsr-x 8 mp298 mp298      203 Sep 30 13:58 ..
-   -rw-rw-r-- 1 mp298 mp298 75706556 Sep 30 13:56 Mov10_oe_1.subset-copy.fq```
+	drwxrwsr-x 2 mp298 mp298       43 Sep 30 13:59 .
+	drwxrwsr-x 8 mp298 mp298      203 Sep 30 13:58 ..
+	-rw-rw-r-- 1 mp298 mp298 75706556 Sep 30 13:56 Mov10_oe_1.subset-copy.fq
 
 The `mv` command is also how you rename files. Since this file is so
 important, let's rename it:
 
 ```$ cd backup```
 
-```$ mv Mov10_oe_1.subset-copy.fq Mov10_oe_1.subset-copy.fq_DO_NOT_TOUCH!```
+`$ mv Mov10_oe_1.subset-copy.fq Mov10_oe_1.subset-copy.fq_DO_NOT_TOUCH!`
 
-```
-$ ls
-Mov10_oe_1.subset-copy.fq_DO_NOT_TOUCH!
-```
+`$ ls`
+
+	Mov10_oe_1.subset-copy.fq_DO_NOT_TOUCH!
 
 Finally, we decided this was silly and want to start over.
 
