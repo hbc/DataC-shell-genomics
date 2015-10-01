@@ -178,6 +178,7 @@ This is called a hierarchical file system structure, like an upside down tree
 with root (/) at the base that looks like this.
 
 ![Unix](../img/Slide1.jpg)
+
 That (/) at the base is often also called the 'top' level.
 
 When you are working at your computer or log in to a remote computer,
@@ -447,7 +448,7 @@ So, let's be a little smarter here. First, move back to our `raw_fastq` director
 
 `cat` is a terrific program, but when the file is really big, it can be annoying to use. The program, `less`, is useful for this case. Enter the following command:
 
-    less Mov10_oe_1.subset.fq
+`less Mov10_oe_1.subset.fq`
 
 `less` opens the file, and lets you navigate through it. The commands are identical to the `man` program.
 
@@ -607,7 +608,7 @@ ctrl-R (reverse history search)
 ctrl-A (start of line)
 ctrl-E (end of line)
 history
-!  (repeat cmd)
+! (repeat cmd)
 cat
 less
 head
