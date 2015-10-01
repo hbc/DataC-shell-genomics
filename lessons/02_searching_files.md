@@ -19,7 +19,6 @@ Approximate time: 60 minutes
 * learn the `grep` command and useful options
 * learn about output redirection 
 * use the pipe (`|`) character to chain together commands
-* construct several custom versions of the SraRunTable
 
 ## Searching files
 
@@ -28,33 +27,40 @@ search within files without even opening them, using `grep`. Grep is a command-l
 utility for searching plain-text data sets for lines matching a string or regular expression.
 Let's give it a try!
 
-Suppose we want to see how many reads in our file have really bad, with 10 consecutive Ns  
+Suppose we want to see how many reads in our file are really bad, with 10 consecutive Ns  
 Let's search for the string NNNNNNNNNN in file 
 
-     grep NNNNNNNNNN SRR098026.fastq
+`$ cd ~/unix_oct2015/raw_fastq`
+
+`$ grep NNNNNNNNNN Mov10_oe_1.subset.fq`
 
 We get back a lot of lines.  What is we want to see the whole fastq record for each of these read.
 We can use the '-B' argument for grep to return the matched line plus one before (-B 1) and two
 lines after (-A 2). Since each record is four lines and the last second is the sequence, this should
 give the whole record.
 
-    grep -B1 -A2 NNNNNNNNNN SRR098026.fastq
+`$ grep -B1 -A2 NNNNNNNNNN Mov10_oe_1.subset.fq`
 
 for example:
 
-    @SRR098026.177 HWUSI-EAS1599_1:2:1:1:2025 length=35
-    CNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
-    +SRR098026.177 HWUSI-EAS1599_1:2:1:1:2025 length=35
-    #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	@HWI-ST330:304:H045HADXX:1:1101:1111:61397
+	CACTTGTAAGGGCAGGCCCCCTTCACCCTCCCGCTCCTGGGGGANNNNNNNNNNANNNCGAGGCCCTGGGGTAGAGGGNNNNNNNNNNNNNNGATCTTGG
+	+
+	@?@DDDDDDHHH?GH:?FCBGGB@C?DBEGIIIIAEF;FCGGI#########################################################
+	--
+	@HWI-ST330:304:H045HADXX:1:1101:1106:89824
+	CACAAATCGGCTCAGGAGGCTTGTAGAAAAGCTCAGCTTGACANNNNNNNNNNNNNNNNNGNGNACGAAACNNNNGNNNNNNNNNNNNNNNNNNNGTTGG
+	+
+	?@@DDDDDB1@?:E?;3A:1?9?E9?<?DGCDGBBDBF@;8DF#########################################################
 
 ****
 **Exercise**
 
-1) Search for the sequence GNATNACCACTTCC in SRR098026.fastq.
+1) Search for the sequence CTCAATGAAGAAATCTCTTAAAC in Mov10_oe_1.subset.fq.
 In addition to finding the sequence, have your search also return
 the name of the sequence.
 
-2) Search for that sequence in both fastq files.
+2) Search for that sequence in all Mov10 replicate fastq files.
 ****
 
 ## Redirection
@@ -71,20 +77,21 @@ to a file, so that we can look at it later.
 
 The redirection command for putting something in a file is `>`
 
-Let's try it out and put all the sequences that contain 'TTATCCGGATTTATTGGGTTTAAAGGGT'
+Let's try it out and put all the sequences that contain 'NNNNNNNNNN'
 from all the files in to another file called `bad_reads.txt`
 
-    grep -B1 -A2 NNNNNNNNNN SRR098026.fastq > bad_reads.txt
+`$ grep -B1 -A2 NNNNNNNNNN Mov10_oe_1.subset.fq > bad_reads.txt`
 
 The prompt should sit there a little bit, and then it should look like nothing
 happened. But type `ls`. You should have a new file called `bad_reads.txt`. Take
 a look at it and see if it has what you think it should.
 
-If we use '>>', it will append to rather tha overwrite a file.  This can be useful for
+If we use '>>', it will append to rather than overwrite a file.  This can be useful for
 saving more than one search, for example:
 
-    grep -B1 -A2 NNNNNNNNNN SRR098026.fastq > bad_reads.txt
-    grep -B1 -A2 NNNNNNNNNN SRR097977.fastq >> bad_reads.txt
+`$ grep -B1 -A2 NNNNNNNNNN Mov10_oe_1.subset.fq > bad_reads.txt`
+    
+`$ grep -B1 -A2 NNNNNNNNNN Mov10_oe_2.subset.fq >> bad_reads.txt`
 
 There's one more useful redirection command that we're going to show, and that's
 called the pipe command, and it is `|`. It's probably not a key on
@@ -94,7 +101,7 @@ When it was all whizzing by before, we wished we could just slow it down and
 look at it, like we can with `less`. Well it turns out that we can! We pipe
 the `grep` command through `less`
 
-    grep -B1 -A2 NNNNNNNNNN SRR098026.fastq | less
+`$ grep -B1 -A2 NNNNNNNNNN Mov10_oe_1.subset.fq | less`
 
 Now we can use the arrows to scroll up and down and use `q` to get out.
 
@@ -103,12 +110,12 @@ We can also do something tricky and use the command `wc`. `wc` stands for
 it to count the number of lines we're getting back from our `grep` command.
 And that will magically tell us how many sequences we're finding. We're
 
-    grep -B1 -A2 NNNNNNNNNN SRR098026.fastq | wc
+`$ grep -B1 -A2 NNNNNNNNNN Mov10_oe_1.subset.fq | wc`
 
 This command tells us the number of lines, words and characters in the file. If we
 just want the number of lines, we can use the `-l` flag for `lines`.
 
-    grep -B1 -A2 NNNNNNNNNN SRR098026.fastq | wc -l
+`$ grep -B1 -A2 NNNNNNNNNN Mov10_oe_1.subset.fq | wc -l`
 
 Redirecting is not super intuitive, but it's really powerful for stringing
 together these different commands, so you can do whatever you need to do.
@@ -122,89 +129,79 @@ learn to become proficient with the pipe and redirection operators:
 
 
 
-Finally, let's use the new tools in our kit and a few new ones to example our SRA metadata file.
+Finally, let's use the new tools in our kit and a few new ones to examine our gene annotation file, **chr1-hg19_genes.gtf**, which we will be using later to find the genomic coordinates of all known exons on chromosome 1.
 
-    cd 
-    cd dc_sample_data/sra_metadata
+`$ cd ~/unix_oct2015/reference_data/`
 
 Let's ask a few questions about the data
 
-1) How many of the read libraries are paired end?
+1) What information is contained within our chr1-hg19_genes.gtf file?
 
-First, what are the column headers?
+`$ less chr1-hg19_genes.gtf`
 
-    $ head -n 1 SraRunTable.txt
-    BioSample_s	InsertSize_l	LibraryLayout_s	Library_Name_s	LoadDate_s	MBases_l	MBytes_l	ReleaseDate_s Run_s SRA_Sample_s Sample_Name_s Assay_Type_s AssemblyName_s BioProject_s Center_Name_s Consent_s Organism_Platform_s SRA_Study_s g1k_analysis_group_s g1k_pop_code_s source_s strain_s
+	chr1    unknown exon    14362   14829   .       -       .       gene_id "WASH7P"; gene_name "WASH7P"; transcript_id "NR_024540"; tss_id "TSS7245";
+	chr1    unknown exon    14970   15038   .       -       .       gene_id "WASH7P"; gene_name "WASH7P"; transcript_id "NR_024540"; tss_id "TSS7245";
+	chr1    unknown exon    15796   15947   .       -       .       gene_id "WASH7P"; gene_name "WASH7P"; transcript_id "NR_024540"; tss_id "TSS7245";
+	chr1    unknown exon    16607   16765   .       -       .       gene_id "WASH7P"; gene_name "WASH7P"; transcript_id "NR_024540"; tss_id "TSS7245";
+	chr1    unknown exon    16858   17055   .       -       .       gene_id "WASH7P"; gene_name "WASH7P"; transcript_id "NR_024540"; tss_id "TSS7245";
 
-That's only the first line but it is a lot to take in.  'cut' is a program that will extract columns in tab-delimited
-files.  It is a very good command to know.  Lets look at just the first four columns in the header using the '|' readirect
-and 'cut'
+The columns in the gtf file contain the genomic coordinates of gene features (exon, start_codon, stop_codon, CDS) and the gene_names, transcript_ids and protein_ids (p_id) associated with these features. Note that sometimes an exon can be associated with multiple different genes and/or transcripts. For example, 
 
-    $ head -n 1 SraRunTable.txt | cut -f1-4
-    BioSample_s InsertSize_l      LibraryLayout_s	Library_Name_s    
+`$ grep FAM138* chr1-hg19_genes.gtf | head -n 5`
 
-'-f1-4' means to cut the first four fields (columns).  The LibraryLayout_s column looks promising.  Let's look at some data for just that column.
+This search returns two different genes, FAM138A and FAM138F, that contain the same exon.
 
-    $ cut -f3 SraRunTable.txt | head -n 10
-    LibraryLayout_s
-    SINGLE
-    SINGLE
-    SINGLE
-    SINGLE
-    SINGLE
-    SINGLE
-    SINGLE
-    SINGLE
-    PAIRED
-    
-We can see that there are (at least) two categories, SINGLE and PAIRED.  We want to search all entries in this column
-for just PAIRED and count the number of hits.
+`$ grep PLEKHN1 chr1-hg19_genes.gtf | head -n 5`
 
-    $ cut -f3 SraRunTable.txt | grep PAIRED | wc -l
-    2
+This search returns two different transcripts of the same gene, NM_001160184 and NM_032129 that contain the same exon.
 
-2) How many of each class of library layout are there?
+Now that we know what type of information is inside of our gtf file, let's explore our commands to answer a simple question about our data. Let's find how many unique exons are present on chromosome 1 using our **gtf** file, **chr1-hg19_genes.gtf**. 
 
-We can use some new tools 'sort' and 'uniq' to extract more information.  For example, cut the third column, remove the
-header and sort the values.  The '-v' option for grep means return all lines that DO NOT match.
+To determine the number of unique exons on chromosome 1, we only need the feature type and the genomic location information. So we should only keep columns 1, 3, 4, 5, and 7. 
 
-    cut -f3 SraRunTable.txt | grep -v LibraryLayout_s | sort
-    
-This returns a sorted list (too long to show here) of PAIRED and SINGLE values.  Now we can use 'uniq' with the '-c' flag to
-count the different categories.
+'cut' is a program that will extract columns from files.  It is a very good command to know.  Let's first try out the 'cut' command on a small dataset (just the first 5 lines of chr1-hg19_genes.gtf) to make sure we have the command correct:
 
-    $ cut -f3 SraRunTable.txt | grep -v LibraryLayout_s |	sort | uniq -c
-      2 PAIRED
-     35 SINGLE 
+`$ head -n 5 chr1-hg19_genes.gtf | cut -f1,3,4,5,7`
+   
+'-f1,3,4,5,7' means to cut these fields (columns) from the dataset.  
 
-3) Sort the metadata file by PAIRED/SINGLE and save to a new file
-   We can use if '-k' option for sort to specify which column to sort on.  Note that this does something
-   similar to cut's '-f'.
+	chr1	exon	14362	14829	-
+	chr1	exon	14970	15038	-
+	chr1	exon	15796	15947	-
+	chr1	exon	16607	16765	-
+	chr1	exon	16858	17055	-
 
-    # peek first before saving
-    sort -k3 SraRunTable.txt | head
-    # now save it
-    sort -k3 SraRunTable.txt > SraRunTable_sorted_by_layout.txt
+Our output looks good, so let's cut these columns from the whole dataset (not just the first 5 lines) and save it as a file, '**chr1-hg19genes_cut**':
 
-4) Extract only paired end records into a new file
-   Do we know PAIRED only occurs in column 4?  WE know there are only two in the file, so let's check.
+`$ cut -f1,3,4,5,7 chr1-hg19_genes.gtf > chr1-hg19genes_cut`
 
-    $ grep PAIRED SraRunTable.txt | wc -l
-    2
+Check the cut file to make sure that it looks good using 'less'. we only want the exon features, not CDS or start_codon features.
 
-OK, we are good to go.
+We can use 'grep' to only keep the data for exons and save as '**chr1_exons**:
 
-    grep PAIRED SraRunTable.txt > SraRunTable_only_paired_end.txt
+`$ grep exon chr1-hg19genes_cut > chr1_exons`
+
+Notice that we need to remove those exons that show up multiple times for different genes or transcripts.    
+
+We can use some new tools 'sort' and 'uniq' to extract only those unique exons.  'uniq' is a command that will omit repeated adjacent lines of data if they are exactly the same. Therefore, we need to 'sort' our data by genomic coordinates first to make sure that all matching exons are adjacent to each other. 
+
+We can use the 'sort command' with the '-k' option for sort to specify which column(s) to sort on.  Note that this does something similar to cut's '-f'.
+
+`$ sort -k3,4 chr1_exons | uniq`
+
+Now, to count how many unique exons are on chromosome 1, we need to pipe the output to 'wc -l':
+
+`$ sort -k3,4 chr1_exons | uniq | wc -l`
     
 
 ****
 **Final Exercise**
 
-1) How many sample load dates are there?
+1) How could have you have determined the number of unique exons by combining all of the previous commands (starting with the original chr1-hg19_genes.gtf), into a single command (no intermediate files) using pipes?
 
-2) How many samples were loaded on each date
+2) There is an argument for the 'sort' command that will only keep unique lines of data. Determine the number of unique exons without using the 'uniq' command.
 
-3) Filter subsets into new files bases on load date
+3) There is an argument for the 'uniq' command that will count the number of occurrences of non-unique exons. Use the uniq command to count the number of non-unique exons and determine the most occurrences of an exon in the dataset.
 ****
 
 <!--  INSERT SECTION ON MAKING A RUDIMENTARY SCRIPT HERE  -->
