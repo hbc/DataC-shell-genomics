@@ -133,9 +133,7 @@ Finally, let's use the new tools in our kit and a few new ones to examine our ge
 
 `$ cd ~/unix_oct2015/reference_data/`
 
-Let's ask a few questions about the data
-
-1) What information is contained within our chr1-hg19_genes.gtf file?
+Let's explore our chr1-hg19_genes.gtf file a bit. What information does it contain?
 
 `$ less chr1-hg19_genes.gtf`
 
@@ -175,13 +173,13 @@ Our output looks good, so let's cut these columns from the whole dataset (not ju
 
 `$ cut -f1,3,4,5,7 chr1-hg19_genes.gtf > chr1-hg19genes_cut`
 
-Check the cut file to make sure that it looks good using 'less'. we only want the exon features, not CDS or start_codon features.
+Check the cut file to make sure that it looks good using `less`. 
 
-We can use 'grep' to only keep the data for exons and save as '**chr1_exons**:
+We only want the exons (not CDS or start_codon features), so let's use 'grep' to only keep the exon lines and save to file, '**chr1_exons**:
 
 `$ grep exon chr1-hg19genes_cut > chr1_exons`
 
-Notice that we need to remove those exons that show up multiple times for different genes or transcripts.    
+Now, we need to remove those exons that show up multiple times for different genes or transcripts.    
 
 We can use some new tools 'sort' and 'uniq' to extract only those unique exons.  'uniq' is a command that will omit repeated adjacent lines of data if they are exactly the same. Therefore, we need to 'sort' our data by genomic coordinates first to make sure that all matching exons are adjacent to each other. 
 
