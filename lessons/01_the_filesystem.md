@@ -82,23 +82,23 @@ You will receive a prompt for your password, and you should type in your ECommon
 
 Once logged in, you should see the Orchestra news and the prompt: 
 
-```-bash-4.1$ ``` 
+`$`
 
 Copy our example data folder to your home directory using the following command:
 
-```-bash-4.1$ cp -r /groups/hbctraining/unix_oct2015/ ~```
+```$ cp -r /groups/hbctraining/unix_oct2015/ ~```
 
 ## Starting with the shell
 
 We have each created our own copy of the example data folder, **unix_oct2015**. Let's go into the data folder and explore the data using the shell.
 
-```-bash-4.1$ cd ~/unix_oct2015```
+```$ cd ~/unix_oct2015```
 
 'cd' stands for 'change directory'
 
 Let's see what is in here. Type:
 
-```-bash-4.1$ ls```
+```$ ls```
 
 You will see:
 
@@ -108,7 +108,7 @@ ls stands for 'list' and it lists the contents of a directory.
 
 There are five items listed.  What are they? We can use a command line argument with `ls` to get more information.
 
-```-bash-4.1$ ls -F```
+```$ ls -F```
 
 ```genomics_data/  other/  raw_fastq/  README.txt  reference_data/```
 
@@ -116,7 +116,7 @@ Anything with a "/" after it is a directory. Things with a "*" after them are pr
 
 You can also use the command
 
-```-bash-4.1$ ls -l```
+```$ ls -l```
 
 ```total 124
 drwxrwsr-x 2 mp298 mp298  78 Sep 30 10:47 genomics_data
@@ -130,9 +130,9 @@ information too.
 
 Let's go into the raw_fastq directory and see what is in there.
 
-```-bash-4.1$ cd raw_fastq/```
+```$ cd raw_fastq/```
 
-```-bash-4.1$ ls -F```
+```$ ls -F```
 ``` Irrel_kd_1.subset.fq  Irrel_kd_3.subset.fq  Mov10_oe_2.subset.fq
     Irrel_kd_2.subset.fq  Mov10_oe_1.subset.fq  Mov10_oe_3.subset.fq```
 
@@ -146,7 +146,7 @@ Most programs take additional arguments that control their exact behavior. For e
 Most commonly used shell programs have a manual. You can access the
 manual using the `man` program. Try entering:
 
-```-bash-4.1$ man ls```
+```$ man ls```
 
 This will open the manual page for `ls`. Use the space key to go forward and b to go backwards. When you are done reading, just hit `q` to quit.
 
@@ -188,7 +188,7 @@ Now let's go do that same navigation at the command line.
 
 Type
 
-```-bash-4.1$ cd```
+```$ cd```
 
 This puts you in your home directory. This folder here.
 
@@ -198,7 +198,7 @@ Let's also check to see where we are. Sometimes when we're wandering around in t
 
 If you want to know what directory you're currently in, type
 
-```-bash-4.1$ pwd```
+```$ pwd```
 
 This stands for 'print working directory'. The directory you're currently working in.
 
@@ -208,7 +208,7 @@ To go 'back up a level' we need to use `..`
 
 Type
 
-```-bash-4.1$ cd ..```
+```$ cd ..```
 
 Now do `ls` and `pwd`. See now that we went back up in to the `unix_oct2015`
 directory. `..` means go back up a level.
@@ -228,19 +228,19 @@ By default, the `ls` commands lists the contents of the working directory (i.e. 
 
 Type:
 
-```-bash-4.1$ cd```
+```$ cd```
 
 Then enter the command:
 
-```-bash-4.1$ ls unix_oct2015/```
+```$ ls unix_oct2015/```
 
 This will list the contents of the `unix_oct2015` directory without you having to navigate there.
 
 The `cd` command works in a similar way. Try entering:
 
-```-bash-4.1$ cd```
+```$ cd```
 
-```-bash-4.1$ cd unix_oct2015/raw_fastq/```
+```$ cd unix_oct2015/raw_fastq/```
 
 and you will jump directly to `raw_fastq` without having to go through the intermediate directory.
 
@@ -254,11 +254,11 @@ List the `Mov10_oe_1.subset.fq` file from your home directory without changing d
 
 Navigate to the home directory. Typing out directory names can waste a lot of time. When you start typing out the name of a directory, then hit the tab key, the shell will try to fill in the rest of the directory name. For example, type `cd` to get back to your home directly, then enter:
 
-```-bash-4.1$ cd uni<tab>```
+```$ cd uni<tab>```
 
 The shell will fill in the rest of the directory name for `unix_oct2015`. Now go to `unix_oct2015/raw_fastq` and 
 
-```-bash-4.1$ ls Mov10_oe_<tab><tab>```
+```$ ls Mov10_oe_<tab><tab>```
 
 When you hit the first tab, nothing happens. The reason is that there are multiple directories in the home directory which start with `Mov10_oe_`. Thus, the shell does not know which one to fill in. When you hit tab again, the shell will list the possible choices.
 
@@ -270,7 +270,7 @@ Tab completion can also fill in the names of programs. For example, enter `e<tab
 
 The `cd` command takes an argument which is the directory name. Directories can be specified using either a *relative* path or a full *path*. The directories on the computer are arranged into a hierarchy. The full path tells you where a directory is in that hierarchy. Navigate to the home directory (`cd`). Now, enter the `pwd` command and you should see:
 
-`-bash-4.1$ pwd`
+`$ pwd`
 
 `/home/username`
 
@@ -278,12 +278,12 @@ which is the full name of your home directory. This tells you that you are in a 
 
 Now enter the following command:
 
-```-bash-4.1$ cd /home/username/unix_oct2015/.my_hidden_directory```
+```$ cd /home/username/unix_oct2015/.my_hidden_directory```
 
 This jumps to `.my_hidden_directory`. Now go back to the home directory (`cd`). We saw
 earlier that the command:
 
-```-bash-4.1$ cd unix_oct2015/.my_hidden_directory/```
+```$ cd unix_oct2015/.my_hidden_directory/```
 
 had the same effect - it took us to the `my_hidden_directory` directory. But, instead of specifying the full path (`/home/username/unix_oct2015/.my_hidden_directory`), we specified a *relative path*. In other words, we specified the path relative to our current directory. A full path always starts with a `/`. A relative path does not.
 
@@ -308,21 +308,21 @@ home directory is very common. So, in the shell the tilde character,
 "~", is a shortcut for your home directory. Navigate to the `raw_fastq`
 directory:
 
-```-bash-4.1$ cd```
+```$ cd```
 
-```-bash-4.1$ cd unix_oct2015/raw_fastq```
+```$ cd unix_oct2015/raw_fastq```
 
 Then enter the command:
 
-```21. -bash-4.1$ ls ~```
+```$ ls ~```
 
 This prints the contents of your home directory, without you having to type the full path. The shortcut `..` always refers to the directory above your current directory. Thus:
 
-```-bash-4.1$ ls ..```
+```$ ls ..```
 
 prints the contents of the `/home/username/unix_oct2015`. You can chain these together, so:
 
-```-bash-4.1$ ls ../..```
+```$ ls ../..```
 
 prints the contents of `/home/username` which is your home directory. Finally, the special directory `.` always refers to your current directory. So, `ls`, `ls .`, and `ls ././././.` all do the same thing, they print the contents of the current directory. This may seem like a useless shortcut right now, but we'll see when it is needed in a little while.
 
@@ -340,15 +340,15 @@ directory contains our FASTQ files.
 
 The '*' character is a shortcut for "everything". Thus, if you enter `ls *`, you will see all of the contents of a given directory. Now try this command:
 
-```-bash-4.1$ ls *fq```
+```$ ls *fq```
 
 This lists every file that ends with a `fq`. This command:
 
-```-bash-4.1$ ls /usr/bin/*.sh```
+```$ ls /usr/bin/*.sh```
 
 Lists every file in `/usr/bin` that ends in the characters `.sh`.
 
-```-bash-4.1$ ls Mov10*fq```
+```$ ls Mov10*fq```
 
 lists only the files that begin with 'Mov10' and end with 'fq'
 
@@ -356,7 +356,7 @@ So how does this actually work? Well...when the shell (bash) sees a word that co
 
 We can use the command `echo` to see wilcards are they are intepreted by the shell.
 
-```-bash-4.1$ echo *.fq```
+```$ echo *.fq```
 
 ```Irrel_kd_1.subset.fq Irrel_kd_2.subset.fq Irrel_kd_3.subset.fq Mov10_oe_1.subset.fq Mov10_oe_2.subset.fq Mov10_oe_3.subset.fq```
 
@@ -389,7 +389,7 @@ is very useful.
 
 You can also review your recent commands with the `history` command.  Just enter:
 
-```-bash-4.1$ history```
+```$ history```
 
 to see a numbered list of recent commands, including this just issues
 `history` command.  You can reuse one of these commands directly by
@@ -403,7 +403,7 @@ If your history looked like this:
 
 then you could repeat command #260 by simply entering:
 
-```-bash-4.1$ !260```
+```$ !260```
 
 
 (that's an exclamation mark).  You will be glad you learned this when you try to re-run very complicated commands.
@@ -426,7 +426,7 @@ contents of directories, but how do we look at the contents of files?
 The easiest way to examine a file is to just print out all of the
 contents using the program `cat`. Change directories to the unix_oct2015/raw_fastq/ and enter the following command:
 
-```-bash-4.1$ cat Mov10_oe_1.subset.fq```
+```$ cat Mov10_oe_1.subset.fq```
 
 This prints out the all the contents of the the `Mov10_oe_1.subset.fq` to the screen.
 
@@ -444,7 +444,7 @@ This prints out the all the contents of the the `Mov10_oe_1.subset.fq` to the sc
 
 So, let's be a little smarter here. First, move back to our `raw_fastq` directory:
 
-```b-bash-4.1$ cd ~/unix_oct2015/raw_fastq/```
+```$ cd ~/unix_oct2015/raw_fastq/```
 
 `cat` is a terrific program, but when the file is really big, it can be annoying to use. The program, `less`, is useful for this case. Enter the following command:
 
@@ -477,15 +477,15 @@ to see the beginning or end of the file, or see how it's formatted.
 The commands are `head` and `tail` and they just let you look at
 the beginning and end of a file respectively.
 
-```-bash-4.1$ head Mov10_oe_1.subset.fq ```
+```$ head Mov10_oe_1.subset.fq ```
 
-```-bash-4.1$ tail Mov10_oe_1.subset.fq```
+```$ tail Mov10_oe_1.subset.fq```
 
 The `-n` option to either of these commands can be used to print the first or last `n` lines of a file. To print the first/last line of the file use:
 
-```-bash-4.1$ head -n 1 Mov10_oe_1.subset.fq```
+```$ head -n 1 Mov10_oe_1.subset.fq```
 
-```-bash-4.1$ tail -n 1 Mov10_oe_1.subset.fq```
+```$ tail -n 1 Mov10_oe_1.subset.fq```
 
 ## Creating, moving, copying, and removing
 
@@ -497,9 +497,9 @@ so let's make a copy to work with.
 
 Lets copy the file using the `cp` command. The `cp` command backs up the file. Navigate to the `data` directory and enter:
 
-```-bash-4.1$ cp Mov10_oe_1.subset.fq Mov10_oe_1.subset-copy.fq```
+```$ cp Mov10_oe_1.subset.fq Mov10_oe_1.subset-copy.fq```
 
-```-bash-4.1$ ls -F```
+```$ ls -F```
 
 Now ``Mov10_oe_1.subset-copy.fq`` has been created as a copy of `Mov10_oe_1.subset.fq`
 
@@ -508,13 +508,13 @@ Let's make a 'backup' directory where we can put this file.
 The `mkdir` command is used to make a directory. Just enter `mkdir`
 followed by a space, then the directory name.
 
-```-bash-4.1$ mkdir backup```
+```$ mkdir backup```
 
 We can now move our backed up file in to this directory. We can move files around using the command `mv`. Enter this command:
 
-```-bash-4.1$ mv *-copy.fq backup```
+```$ mv *-copy.fq backup```
 
-```-bash-4.1$ ls -al backup```
+```$ ls -al backup```
 
 ```drwxrwsr-x 2 mp298 mp298       43 Sep 30 13:59 .
    drwxrwsr-x 8 mp298 mp298      203 Sep 30 13:58 ..
@@ -523,20 +523,20 @@ We can now move our backed up file in to this directory. We can move files aroun
 The `mv` command is also how you rename files. Since this file is so
 important, let's rename it:
 
-```-bash-4.1$ cd backup```
+```$ cd backup```
 
-``` -bash-4.1$ mv Mov10_oe_1.subset-copy.fq Mov10_oe_1.subset-copy.fq_DO_NOT_TOUCH!```
+```$ mv Mov10_oe_1.subset-copy.fq Mov10_oe_1.subset-copy.fq_DO_NOT_TOUCH!```
 
 ```
--bash-4.1$ ls
+$ ls
 Mov10_oe_1.subset-copy.fq_DO_NOT_TOUCH!
 ```
 
 Finally, we decided this was silly and want to start over.
 
-```-bash-4.1$ cd ..```
+```$ cd ..```
 
-```-bash-4.1$ rm backup/Mov*```
+```$ rm backup/Mov*```
 
 The `rm` file permanently removes the file. Be careful with this command. It doesn't
 just nicely put the files in the Trash. They're really gone.
@@ -556,7 +556,7 @@ Do the following:
 
 By default, `rm`, will NOT delete directories. You can tell `rm` to delete a directory using the `-r` option. Let's delete that `new` directory we just made. Enter the following command:
 
-```-bash-4.1$ rm -r backup/```
+```$ rm -r backup/```
 
 ## Writing files
 
@@ -565,11 +565,11 @@ We've been able to do a lot of work with files that already exist, but what if w
 To write in files, we're going to use the program `nano`. We're going to create
 a file that contains the favorite grep command so you can remember it for later. We'll name this file 'awesome.sh'.
 
-```-bash-4.1$ nano awesome.sh```
+```$ nano awesome.sh```
 
 Now you have something that looks like
 
-![nano1.png](../img/nano1)
+![nano1.png](../img/nano1.png)
 
 Type in your command:
 
@@ -577,7 +577,7 @@ Type in your command:
 
  so it looks like
 
-![nano2.png](../img/nano2)
+![nano2.png](../img/nano2.png)
 
 Now we want to save the file and exit. At the bottom of nano, you see the "\^X Exit". That means that we use Ctrl-X to exit. Type `Ctrl-X`. It will ask if you want to save it. Type `y` for yes. Then it asks if you want that file name. Hit 'Enter'.
 
