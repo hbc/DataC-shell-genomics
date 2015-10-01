@@ -358,7 +358,8 @@ We can use the command `echo` to see wilcards are they are intepreted by the she
 
 ```$ echo *.fq```
 
-	Irrel_kd_1.subset.fq Irrel_kd_2.subset.fq Irrel_kd_3.subset.fq Mov10_oe_1.subset.fq Mov10_oe_2.subset.fq Mov10_oe_3.subset.fq
+	Irrel_kd_1.subset.fq Irrel_kd_2.subset.fq Irrel_kd_3.subset.fq
+	Mov10_oe_1.subset.fq Mov10_oe_2.subset.fq Mov10_oe_3.subset.fq
 
 The '*' is expanded to include any file that ends with '.fq'
 
